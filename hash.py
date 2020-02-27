@@ -4,7 +4,7 @@ score = [int(x) for x in input().split()]
 
 freq = [0 for i in range(B)]
 
-from heapq import heappop, heappush
+from heapq import heappop, heappush, heapify
 
 import random
 calls = 0
@@ -21,7 +21,7 @@ class library:
         bookList = []
         
         for book in self.books:
-            bookList.append(((score[book] + 1000) / (freq[book]), book))
+            bookList.append((-score[book], book))
             
         bookList.sort()
         
@@ -46,7 +46,7 @@ class library:
             count -= 1
             if count == 0: break
         
-        return (sumOf) / (self.time * self.time)
+        return (sumOf) / self.time
         
         
 libs = []
@@ -64,7 +64,9 @@ for l in range(L):
     libs.append(library(N, T, M, ids))
 
 for l in range(L):
-    heappush(h, (-libs[l].heuristic(), l))
+    h.append((-libs[l].heuristic(), l))
+
+heapify(h)
 
 sumOf = 0
 
@@ -105,12 +107,12 @@ while len(h):
         output.append(out)
         for book in libs[l].books:
             freq[book] -= 1
-
+print(sumOf)
 print(len(output) // 2)
 for line in output:
     print(*line)
 
     
 """
-python3 hash.py < a.txt > ao.txt | python3 hash.py < b.txt > bo.txt | python3 hash.py < c.txt > co.txt | python3 hash.py < d.txt > do.txt | python3 hash.py < e.txt > eo.txt | python3 hash.py < f.txt > fo.txt
+python3 hash.py < a.txt > ao.txt && python3 hash.py < b.txt > bo.txt && python3 hash.py < c.txt > co.txt && python3 hash.py < d.txt > do.txt && python3 hash.py < e.txt > eo.txt && python3 hash.py < f.txt > fo.txt
 """
